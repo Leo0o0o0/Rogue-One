@@ -1,0 +1,334 @@
+/*  Bingo!
+Game.java
+Silin Chen
+Leo
+schen23
+Section4 */
+
+import java.util.Scanner;
+import java.io.*;
+import java.util.Random;
+
+//Bingo game
+public class Game
+{
+  public static void main(String[] args) throws Exception
+  {
+    int a = 0;
+    int i = 0;
+    int[] numberList = new int[30];
+    boolean checkBoard = false;
+    int[] possiblities = new int[75];
+    
+    for(int x = 0; x< 75; x++)
+      possiblities[x] = x+1;
+    
+    
+    Scanner input = new Scanner(System.in);
+    Random gen = new Random();
+    
+    System.out.println("Welcome to Bingo! Please enter your name: ");
+    String name = input.nextLine();
+    
+    Scanner reader = new Scanner(new File("record.txt"));
+    PrintWriter writer = new PrintWriter("GameResult.txt");
+    
+    //check the input file to see if this user has played before.
+    if(name.compareTo(reader.nextLine()) == 0)
+      System.out.println("Welcome back! " + name + "\nAccording to record, you have " + reader.nextLine()
+                        + " and " + reader.nextLine() + "\nGood luck on this one!\nHere is your game board for this time: ");
+    else
+      System.out.println("Hello new player, Here is your game board: ");
+    
+    Board board = new Board();
+    printBoard(board);
+    
+    while(a<1){
+    //user can choose to get a new board if he doesn't like the current one
+    System.out.println("Do you want to start the game?");
+    String answer = input.nextLine();
+    if(answer.compareToIgnoreCase("yes") == 0)
+      a++;
+    else{
+      System.out.println("Here is your new board: ");
+      board = new Board();
+      printBoard(board);
+    }
+    }
+    
+    System.out.println("----------------------\nGame Start!");
+    
+    for(i = 0;i<30;i++){
+      //To make sure the generater won't generate any number for more than 1 time.
+      int number = 0;
+      for(int x = 0; x<1; x++){
+        number = gen.nextInt(75)+1;
+        if(number == possiblities[number-1]){
+        number = possiblities[number-1];
+        possiblities[number-1] = -1;
+      }
+        else
+          x--;
+      }
+      
+      if(number<16){
+        System.out.println("B"+ number + "\nDo you have this number?");
+        String check = input.nextLine();
+        if(check.compareToIgnoreCase("yes")==0){
+          int b = board.searchB(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateB(b);
+            //print the board again
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+        else {
+          int b = board.searchB(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateB(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+      }
+      
+      if(number<31&&number>15){
+        System.out.println("I"+ number + "\nDo you have this number?");
+        String check = input.nextLine();
+        if(check.compareToIgnoreCase("yes")==0){
+          int b = board.searchI(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateI(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+        else {
+          int b = board.searchI(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateI(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+      }
+      
+      if(number<46&&number>30){
+        System.out.println("N"+ number + "\nDo you have this number?");
+        String check = input.nextLine();
+        if(check.compareToIgnoreCase("yes")==0){
+          int b = board.searchN(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateN(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+        else {
+          int b = board.searchN(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateN(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+      }
+      
+      if(number<61&&number>45){
+        System.out.println("G"+ number + "\nDo you have this number?");
+        String check = input.nextLine();
+        if(check.compareToIgnoreCase("yes")==0){
+          int b = board.searchG(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateG(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+        else {
+          int b = board.searchG(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateG(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+      }
+      
+      if(number<76&&number>60){
+        System.out.println("O"+ number + "\nDo you have this number?");
+        String check = input.nextLine();
+        if(check.compareToIgnoreCase("yes")==0){
+          int b = board.searchO(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateO(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+        else {
+          int b = board.searchO(number);
+          if(b != -1){
+            System.out.println("You do have the number! Your game board has been updated.");
+            //replace the number with 0
+            board.updateO(b);
+            printBoard(board);
+          }
+          else{
+            System.out.println("You do not have this number! Game continue.");
+            printBoard(board);}
+        }
+      }
+      
+      numberList[i]=number;
+      //check if there is a row of 0s
+      checkBoard = check(board);
+      //if it is true, the game is over immediately
+      if(checkBoard == true)
+        i=30;
+    }
+    
+    //print the results to a file
+    writer.println("Game Result: ");
+    System.out.println("Game Over!");
+    if(i==31){
+      System.out.println("You are the winner!");
+      writer.println("Win!");
+    }
+    else{
+      System.out.println("Sorry you lost! Maybe next time.");
+      writer.println("Lost!");
+    }
+    
+    //print all the data
+    writer.println("All the numbers: ");
+    for(int x = 0; x< 30; x++){
+      if(numberList[x] != 0)
+        writer.print(numberList[x] + " ");
+    }
+    writer.println("");
+    sort(numberList);
+    writer.println("All the numbers after sorted: ");
+    for(int x = 0; x< 30; x++){
+      if(numberList[x] != 0)
+        writer.print(numberList[x] + " ");
+    }
+    
+    
+    reader.close();
+    writer.close();
+  }
+  //print the board
+  public static void printBoard(Board exmp){
+    int[][] gameBoard = exmp.toArray();
+    
+    System.out.println("B  I  N  G  O");
+    for(int i = 0;i<5;i++){
+      for(int p = 0;p<5;p++){
+        System.out.print(gameBoard[i][p] + " ");
+      }
+      System.out.print("\n");
+    }
+  }
+  
+  //check the 2 dimensional array to see if the game is over
+  public static boolean check(Board gameboard){
+    int[][] exmp = gameboard.toArray();
+    
+    boolean checkResult = false;
+    if(exmp[0][0]==0&&exmp[0][1]==0&&exmp[0][2]==0&&exmp[0][3]==0&&exmp[0][4]==0)
+      checkResult = true;
+    
+    else if(exmp[1][0]==0&&exmp[1][1]==0&&exmp[1][2]==0&&exmp[1][3]==0&&exmp[1][4]==0)
+      checkResult = true;
+    
+    else if(exmp[2][0]==0&&exmp[2][1]==0&&exmp[2][2]==0&&exmp[2][3]==0&&exmp[2][4]==0)
+      checkResult = true;
+    
+    else if(exmp[3][0]==0&&exmp[3][1]==0&&exmp[3][2]==0&&exmp[3][3]==0&&exmp[3][4]==0)
+      checkResult = true;
+    
+    else if(exmp[4][0]==0&&exmp[4][1]==0&&exmp[4][2]==0&&exmp[4][3]==0&&exmp[4][4]==0)
+      checkResult = true;
+    //
+    else if(exmp[0][0]==0&&exmp[1][0]==0&&exmp[2][0]==0&&exmp[3][0]==0&&exmp[4][0]==0)
+      checkResult = true;
+    
+    else if(exmp[0][0]==0&&exmp[1][1]==0&&exmp[2][1]==0&&exmp[3][1]==0&&exmp[4][1]==0)
+      checkResult = true;
+    
+    else if(exmp[0][2]==0&&exmp[1][2]==0&&exmp[2][2]==0&&exmp[3][2]==0&&exmp[4][2]==0)
+      checkResult = true;
+    
+    else if(exmp[0][3]==0&&exmp[1][3]==0&&exmp[2][3]==0&&exmp[3][3]==0&&exmp[4][3]==0)
+      checkResult = true;
+    
+    else if(exmp[0][4]==0&&exmp[1][4]==0&&exmp[2][4]==0&&exmp[3][4]==0&&exmp[4][4]==0)
+      checkResult = true;
+    //
+    else if(exmp[0][0]==0&&exmp[1][1]==0&&exmp[2][2]==0&&exmp[3][3]==0&&exmp[4][4]==0)
+      checkResult = true;
+    
+    else if(exmp[0][4]==0&&exmp[1][3]==0&&exmp[2][2]==0&&exmp[3][1]==0&&exmp[4][0]==0)
+      checkResult = true;
+    
+    else
+      ;
+    return checkResult;
+  }
+  
+  //bubble sort
+  public static void sort(int[] a){
+    int startIndex; 
+    int i;  
+    
+    for (startIndex = 0;startIndex<=a.length-2; startIndex++)
+    {
+      for (i=a.length-2; i>=startIndex; i--)
+        if (a[i]>a[i+1])  
+      { 
+        int temp;
+        temp = a[i];
+        a[i]=a[i+1];
+        a[i+1]=temp;
+      } 
+    }
+  }
+  }
