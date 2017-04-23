@@ -1,0 +1,164 @@
+/*  Bingo!
+Board.java
+Silin Chen
+Leo
+schen23
+Section4 */
+
+import java.util.Random;
+
+//the class that creats a game board
+public class Board
+{
+  private int[] rawB = new int[15];
+  private int[] rawI = new int[15];
+  private int[] rawN = new int[15];
+  private int[] rawG = new int[15];
+  private int[] rawO = new int[15];
+  
+  private int[] B = new int[5];
+  private int[] I = new int[5];
+  private int[] N = new int[5];
+  private int[] G = new int[5];
+  private int[] O = new int[5];
+  
+  Random rand = new Random();
+  
+  public Board(){
+    for(int i = 0;i<15;i++){
+      rawB[i] = 1+i;
+      rawI[i] = 16+i;
+      rawN[i] = 31+i;
+      rawG[i] = 46+i;
+      rawO[i] = 61+i;
+    }
+    
+    //Make sure there won't be any same number in the array.
+    for(int i = 0;i<5;i++){
+      int temp = rand.nextInt(15)+1;
+      if(temp == rawB[temp-1]){
+        B[i] = rawB[temp-1];
+        rawB[temp-1] = -1;
+      }
+      else
+        i--;
+    }
+    //Make sure there won't be any same number in the array.
+    for(int i = 0;i<5;i++){
+      int temp =  rand.nextInt(15)+1;
+      if(temp + 15== rawI[temp-1]){
+        I[i] = rawI[temp-1];
+        rawI[temp-1] = -1;
+      }
+      else
+        i--;
+    }
+    //Make sure there won't be any same number in the array.
+    for(int i = 0;i<5;i++){
+      int temp = rand.nextInt(15)+1;
+      if(temp + 30 == rawN[temp-1]){
+        N[i] = rawN[temp-1];
+        rawN[temp-1] = -1;
+      }
+      else
+        i--;
+    }
+    //Make sure there won't be any same number in the array.
+    for(int i = 0;i<5;i++){
+      int temp = rand.nextInt(15)+1;
+      if(temp + 45 == rawG[temp-1]){
+        G[i] = rawG[temp-1];
+        rawG[temp-1] = -1;
+      }
+      else
+        i--;
+    }
+    //Make sure there won't be any same number in the array.
+    for(int i = 0;i<5;i++){
+      int temp = rand.nextInt(15)+1;
+      if(temp + 60 == rawO[temp-1]){
+        O[i] = rawO[temp-1];
+        rawO[temp-1] = -1;
+      }
+      else
+        i--;
+    }
+  }
+  //Turn the board into a 2 dimensional array
+  public int[][] toArray(){
+    int[][] array = new int[5][5];
+    array[0][0] = B[0];
+    for(int i = 0;i<5;i++)
+      array[i][0] = B[i];
+    for(int i = 0;i<5;i++)
+      array[i][1] = I[i];
+    for(int i = 0;i<5;i++)
+      array[i][2] = N[i];
+    for(int i = 0;i<5;i++)
+      array[i][3] = G[i];
+    for(int i = 0;i<5;i++)
+      array[i][4] = O[i];
+    
+    return array;
+  }
+  //search array B foe the target number
+  public int searchB(int target){
+    for(int i = 0;i<B.length;i++){
+      if(B[i] == target)
+        return i;
+    }
+    return -1;
+  }
+  //search array i foe the target number
+  public int searchI(int target){
+    for(int i = 0;i<B.length;i++){
+      if(I[i] == target)
+        return i;
+    }
+    return -1;
+  }
+  //search array n foe the target number
+  public int searchN(int target){
+    for(int i = 0;i<B.length;i++){
+      if(N[i] == target)
+        return i;
+    }
+    return -1;
+  }
+  //search array g foe the target number
+  public int searchG(int target){
+    for(int i = 0;i<B.length;i++){
+      if(G[i] == target)
+        return i;
+    }
+    return -1;
+  }
+  //search array o foe the target number
+  public int searchO(int target){
+    for(int i = 0;i<B.length;i++){
+      if(O[i] == target)
+        return i;
+    }
+    return -1;
+  }
+  //replace the called number with 0
+  public void updateB(int index){
+    B[index] = 0;
+  }
+  //replace the called number with 0
+  public void updateI(int index){
+    I[index] = 0;
+  }
+  //replace the called number with 0
+  public void updateN(int index){
+    N[index] = 0;
+  }
+  //replace the called number with 0
+  public void updateG(int index){
+    G[index] = 0;
+  }
+  //replace the called number with 0
+  public void updateO(int index){
+    O[index] = 0;
+  }
+}
